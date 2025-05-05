@@ -1,0 +1,30 @@
+
+database: studentsystem
+mk: admin1
+admin: admin
+
+CREATE TABLE users (
+    user_id VARCHAR(50) PRIMARY KEY,
+    user_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    dob VARCHAR(10),
+    account_name VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE students (
+    user_id VARCHAR(50) PRIMARY KEY,
+    major VARCHAR(100),
+    faculty VARCHAR(100),
+    student_type VARCHAR(20), -- 'YEAR_BASED' hoặc 'CREDIT_BASED'
+    academic_year VARCHAR(10), -- Chỉ dùng cho YearBasedStudent
+    total_credits INTEGER, -- Chỉ dùng cho CreditBasedStudent
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE teachers (
+    user_id VARCHAR(50) PRIMARY KEY,
+    department VARCHAR(100),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
